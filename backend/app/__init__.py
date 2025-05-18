@@ -5,7 +5,7 @@ from app.routes.job_routes import job_bp
 
 def create_app():
     app = Flask(__name__)
-    app.config.from_object('app.config.Config')
+    app.config.from_object('app.config.Config')  # Charge la config
     CORS(app)
 
     db.init_app(app)

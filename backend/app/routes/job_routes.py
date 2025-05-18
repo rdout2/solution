@@ -27,9 +27,9 @@ def add_application():
             date_applied=data.get('date_applied'),
             job_board=data.get('job_board'),
             location=data.get('location'),
-            notes=data.get('notes'),
-            user_id=data.get('user_id', 1)  # temporairement fixe si pas d'auth
+            notes=data.get('notes')
         )
+
         db.session.add(new_app)
         db.session.commit()
         return jsonify(new_app.to_dict()), 201
