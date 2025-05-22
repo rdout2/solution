@@ -83,7 +83,7 @@ onMounted(async () => {
         <div class="md:col-span-2">
           <label class="block text-sm font-medium text-gray-700">Notes</label>
           <div class="mt-1 text-lg whitespace-pre-wrap">
-            {{ job.notes || 'No notes available' }}
+            <!-- {{ job.notes || 'No notes available' }} -->
           </div>
         </div>
       </div>

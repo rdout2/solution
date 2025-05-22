@@ -2,6 +2,11 @@
 import { useRouter } from 'vue-router';
 
 const router = useRouter();
+
+// Exemple d'utilisation du router
+function navigateToHome() {
+  router.push('/');
+}
 </script>
 
 <template>
@@ -46,6 +51,7 @@ const router = useRouter();
 
     <main class="container mx-auto">
       <router-view></router-view>
+      <button @click="navigateToHome">Go to Home</button>
     </main>
   </div>
 </template>
