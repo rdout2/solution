@@ -4,7 +4,12 @@ import { useRouter } from 'vue-router'
 import { watch } from 'vue'
 
 const router = useRouter()
-const { isSignedIn } = useAuth()
+const { isSignedIn, getToken } = useAuth()
+
+   getToken.value().then((token) => {
+    console.log('Token:', token)
+  })
+
 
 // Redirection automatique si déjà connecté
 watch(isSignedIn, (signedIn) => {
