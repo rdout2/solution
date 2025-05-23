@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue';
+import { useRouter } from 'vue-router';
 import type { Application, ApplicationStatus } from '../../types/application';
 import ApplicationCard from './ApplicationCard.vue';
 
@@ -7,6 +8,8 @@ const props = defineProps<{
   title: ApplicationStatus;
   applications: Application[];
 }>();
+
+const router = useRouter();
 
 const columnColor = computed(() => {
   const colors = {
@@ -29,6 +32,11 @@ const columnBgColor = computed(() => {
   };
   return colors[props.title] || 'bg-gray-50';
 });
+
+// Fonction de redirection vers la page d'ajout avec le status de la colonne
+function goToAddJob() {
+  router.push({ name: 'add-job', query: { status: props.title } });
+}
 </script>
 
 <template>
@@ -55,7 +63,10 @@ const columnBgColor = computed(() => {
     </div>
     
     <div class="column-footer p-2 bg-white border-t border-gray-100">
-      <button class="w-full py-2 px-3 flex items-center justify-center rounded-md bg-gray-50 hover:bg-gray-100 transition-colors duration-200 text-gray-600">
+      <button
+        class="w-full py-2 px-3 flex items-center justify-center rounded-md bg-gray-50 hover:bg-gray-100 transition-colors duration-200 text-gray-600"
+        @click="goToAddJob"
+      >
         <span class="mr-1 text-lg font-medium leading-none">+</span>
         <span class="text-sm">Add application</span>
       </button>

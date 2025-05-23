@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { useRouter } from 'vue-router';
+import { useRouter } from 'vue-router'
+import { SignedIn, SignedOut, SignInButton, UserButton } from '@clerk/vue'
 
-const router = useRouter();
+const router = useRouter()
 
-// Exemple d'utilisation du router
 function navigateToHome() {
-  router.push('/');
+  router.push('/')
 }
 </script>
 
@@ -14,7 +14,10 @@ function navigateToHome() {
     <header class="bg-white border-b border-gray-200 shadow-sm py-4">
       <div class="container mx-auto px-4">
         <div class="flex justify-between items-center">
+          <!-- Logo / Titre -->
           <h1 class="text-xl font-bold text-primary-600">JobTracker</h1>
+          
+          <!-- Navigation -->
           <nav class="flex gap-4">
             <router-link 
               to="/" 
@@ -45,13 +48,23 @@ function navigateToHome() {
               Profile
             </router-link>
           </nav>
+
+          <!-- Authentification Clerk -->
+          <div>
+            <SignedOut>
+              <SignInButton />
+            </SignedOut>
+            <SignedIn>
+              <UserButton />
+            </SignedIn>
+          </div>
         </div>
       </div>
     </header>
 
     <main class="container mx-auto">
       <router-view></router-view>
-      <button @click="navigateToHome">Go to Home</button>
+      <!-- <button @click="navigateToHome">Go to Home</button> -->
     </main>
   </div>
 </template>

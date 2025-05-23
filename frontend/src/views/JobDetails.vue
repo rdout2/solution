@@ -49,7 +49,7 @@ onMounted(async () => {
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
           <label class="block text-sm font-medium text-gray-700">Job Title</label>
-          <div class="mt-1 text-lg">{{ job.jobTitle }}</div>
+          <div class="mt-1 text-lg">{{ job.title }}</div>
         </div>
 
         <div>
@@ -77,13 +77,32 @@ onMounted(async () => {
 
         <div>
           <label class="block text-sm font-medium text-gray-700">Date Applied</label>
-          <div class="mt-1 text-lg">{{ job.date }}</div>
+          <div class="mt-1 text-lg">
+            {{ job.date_applied ? new Date(job.date_applied).toLocaleDateString() : 'N/A' }}
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Job Board</label>
+          <div class="mt-1 text-lg">{{ job.job_board || 'N/A' }}</div>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Location</label>
+          <div class="mt-1 text-lg">{{ job.location || 'N/A' }}</div>
         </div>
 
         <div class="md:col-span-2">
           <label class="block text-sm font-medium text-gray-700">Notes</label>
           <div class="mt-1 text-lg whitespace-pre-wrap">
-            <!-- {{ job.notes || 'No notes available' }} -->
+            {{ job.notes || 'No notes available' }}
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Created At</label>
+          <div class="mt-1 text-lg">
+            {{ job.created_at ? new Date(job.created_at).toLocaleString() : 'N/A' }}
           </div>
         </div>
       </div>

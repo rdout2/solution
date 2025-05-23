@@ -1,14 +1,15 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import { useRouter } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import type { ApplicationStatus } from '../types/application';
 
+const route = useRoute();
 const router = useRouter();
 
 const formData = ref({
   jobTitle: '',
   company: '',
-  status: 'Wishlist' as ApplicationStatus,
+  status: (route.query.status as ApplicationStatus) || 'Wishlist',
   jobBoard: '',
   location: '',
   notes: ''
@@ -23,18 +24,28 @@ async function handleSubmit() {
   loading.value = true;
   error.value = null;
 
+  // Adapter les clés pour l'API Flask
+  const payload = {
+    title: formData.value.jobTitle,
+    company: formData.value.company,
+    status: formData.value.status,
+    job_board: formData.value.jobBoard,
+    location: formData.value.location,
+    notes: formData.value.notes,
+  };
+
   try {
     const response = await fetch('http://localhost:5000/api/applications', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(formData.value),
+      body: JSON.stringify(payload),
     });
 
     if (!response.ok) throw new Error('Failed to create application');
-    
-    router.push('/');
+
+    router.push('/dashboard'); // Redirige vers le dashboard
   } catch (err) {
     error.value = err instanceof Error ? err.message : 'Failed to create application';
   } finally {

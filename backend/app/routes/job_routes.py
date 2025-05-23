@@ -60,3 +60,10 @@ def delete_application(app_id):
     db.session.delete(app)
     db.session.commit()
     return jsonify({"message": f"Candidature {app_id} supprimée ✅"}), 200
+
+
+# 🔎 Récupérer une candidature par son id
+@job_bp.route('/api/applications/<int:app_id>', methods=['GET'])
+def get_application(app_id):
+    app = Application.query.get_or_404(app_id)
+    return jsonify(app.to_dict()), 200
