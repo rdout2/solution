@@ -26,10 +26,12 @@ const viewDetails = () => {
        @click="viewDetails">
     <div class="flex items-start justify-between">
       <div>
-        <h3 class="font-medium text-gray-900 text-base mb-1">{{ application.jobTitle }}</h3>
+        <h3 class="font-medium text-gray-900 text-base mb-1">{{ application.title }}</h3>
         <p class="text-gray-500 text-sm">{{ application.company }}</p>
       </div>
-      <span class="text-xs text-gray-400">{{ application.date }}</span>
+      <span class="text-xs text-gray-400">
+        {{ application.date_applied || application.created_at }}
+      </span>
     </div>
     
     <div class="mt-3 flex justify-between items-center">

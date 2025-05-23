@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue';
+import { ref, computed, onMounted } from "vue"
 import { Bar } from 'vue-chartjs';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
 import type { Application } from '../types/application';
@@ -57,7 +57,12 @@ const metrics = computed(() => ({
 
 const recentApplications = computed(() => {
   return [...applications.value]
-    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+    .sort((a, b) => {
+      // Utilise date_applied si dispo, sinon created_at
+      const dateA = new Date(a.date_applied || a.created_at).getTime();
+      const dateB = new Date(b.date_applied || b.created_at).getTime();
+      return dateB - dateA;
+    })
     .slice(0, 5);
 });
 
@@ -131,9 +136,11 @@ onMounted(async () => {
             </thead>
             <tbody class="bg-white divide-y divide-gray-200">
               <tr v-for="app in recentApplications" :key="app.id">
-                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ app.jobTitle }}</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ app.title }}</td>
                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ app.company }}</td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ app.date }}</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                  {{ app.date_applied || app.created_at }}
+                </td>
                 <td class="px-6 py-4 whitespace-nowrap">
                   <span class="px-2 py-1 text-xs font-medium rounded-full"
                     :class="{

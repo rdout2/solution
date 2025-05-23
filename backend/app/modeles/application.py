@@ -13,6 +13,7 @@ class Application(db.Model):
     location = db.Column(db.String(100), nullable=True)
     notes = db.Column(db.Text, nullable=True)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    user_id = db.Column(db.String(255), nullable=False)  # Clerk user id
 
     def to_dict(self):
         return {
@@ -24,5 +25,6 @@ class Application(db.Model):
             "job_board": self.job_board,
             "location": self.location,
             "notes": self.notes,
-            "created_at": self.created_at.isoformat()
+            "created_at": self.created_at.isoformat(),
+            "user_id": self.user_id
         }

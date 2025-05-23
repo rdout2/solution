@@ -12,8 +12,9 @@ export interface Application {
   location?: string | null;
   notes?: string | null;
   created_at: string;
-  logo?: string; // optionnel pour l'affichage, pas dans le backend
+  logo?: string;
 }
+
 
 export interface GroupedApplications {
   Wishlist: Application[];

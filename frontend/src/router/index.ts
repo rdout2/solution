@@ -20,15 +20,21 @@ const router = createRouter({
   routes
 })
 
-import { useAuth } from '@clerk/vue'
-router.beforeEach((to, _from, next) => {
-  const { isSignedIn } = useAuth()
-  if (to.meta.requiresAuth && !isSignedIn.value) {
-    next('/')
-  } else {
-    next()
+// Guard d'authentification Clerk (compatible SSR et SPA)
+router.beforeEach(async (to, _from, next) => {
+  // Si la route nécessite une authentification
+  if (to.meta.requiresAuth) {
+    // Attendre que Clerk soit prêt
+    await window.Clerk?.load();
+    // Vérifier si l'utilisateur est connecté
+    const isSignedIn = window.Clerk?.user ? true : false;
+    if (!isSignedIn) {
+      // Rediriger vers la page d'accueil (landing page)
+      next({ name: 'landing' });
+      return;
+    }
   }
-})
+  next();
+});
 
 export default router
-

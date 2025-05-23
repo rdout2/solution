@@ -80,9 +80,11 @@ function generateMockData(): Application[] {
 
   return Array.from({ length: 20 }, (_, i) => ({
     id: i + 1,
-    jobTitle: jobTitles[Math.floor(Math.random() * jobTitles.length)],
+    title: jobTitles[Math.floor(Math.random() * jobTitles.length)],
     company: companies[Math.floor(Math.random() * companies.length)],
     status: statuses[Math.floor(Math.random() * statuses.length)],
-    date: new Date(Date.now() - Math.floor(Math.random() * 30) * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+    date_applied: new Date(Date.now() - Math.floor(Math.random() * 30) * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+    created_at: new Date().toISOString(),
+    // Ajoute d'autres champs optionnels si besoin (job_board, location, notes, logo)
   }));
 }
