@@ -26,9 +26,9 @@ function navigateToHome() {
               <router-link to="/add-job" class="text-gray-600 hover:text-primary-600 transition-colors" active-class="text-primary-600 font-medium">
                 Add Job
               </router-link>
-              <router-link to="/profile" class="text-gray-600 hover:text-primary-600 transition-colors" active-class="text-primary-600 font-medium">
+              <!-- <router-link to="/profile" class="text-gray-600 hover:text-primary-600 transition-colors" active-class="text-primary-600 font-medium">
                 Profile
-              </router-link>
+              </router-link> -->
             </nav>
           </SignedIn>
 
